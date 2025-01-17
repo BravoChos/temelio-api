@@ -47,6 +47,8 @@ Some parts of this question were left vague on purpose to see what you come up w
     - templates
 
 - Define minimum list of apis
+    - POST /template:      => Create template
+    - PUT /template:      => Update template
     - POST /nonprofits:      => Create nonprofit
     - GET /nonprofits:       => Read nonprofits
     - POST /email/send:      => Deliver Emails (bulk)
