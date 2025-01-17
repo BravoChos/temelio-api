@@ -13,6 +13,9 @@ export class CreateEmailLogDto {
   @IsString()
   template_id: string;
 
+  @IsEmail()
+  cc: [string];
+
   @IsOptional()
   @IsString()
   status?: string;

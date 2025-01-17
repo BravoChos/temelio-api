@@ -29,12 +29,15 @@ export class EmailService {
     template_id,
     subject,
     message,
+    cc,
   }: SendEmailDto): Promise<void> {
+    // Ref. Sendgrid Documentation
     const email: sgMail.MailDataRequired = {
       to,
       from,
       subject,
       text: message,
+      cc,
     };
     try {
       // ******** TODO: need to work *********
@@ -45,6 +48,8 @@ export class EmailService {
         from,
         sender_id,
         template_id,
+        // message,
+        cc,
         status: 'DELIVERED',
       });
     } catch (error) {
@@ -52,12 +57,14 @@ export class EmailService {
         `Failed to send email and error message is:`,
         error.message,
       );
+
       await this.createEmailLog({
         to,
         from,
         sender_id,
         template_id,
         status: 'FAILED',
+        cc,
       });
     }
   }
@@ -68,11 +75,14 @@ export class EmailService {
     sender_id,
     template_id,
     subject,
+    cc,
     message,
   }: SendEmailsDto): Promise<void> {
+    // Todo: implement Chunks and queue...!
     for (const email of emails) {
       this.sendEmail({
         to: email,
+        cc,
         from,
         sender_id,
         template_id,
@@ -88,10 +98,11 @@ export class EmailService {
     sender_id,
     template_id,
     status,
+    cc,
   }: CreateEmailLogDto) {
     const query = `
-      INSERT INTO email_logs ("to", "from", sender_id, template_id, "status")
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO email_logs ("to", "from", sender_id, template_id, "status", "cc")
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `;
 
@@ -102,6 +113,7 @@ export class EmailService {
         sender_id,
         template_id,
         status,
+        cc,
       ]);
       return result[0];
     } catch (err) {

@@ -14,6 +14,9 @@ export class SendEmailsDto {
   message: string;
 
   @IsString()
+  cc: [string];
+
+  @IsString()
   sender_id: string;
 
   @IsString()

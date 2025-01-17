@@ -22,7 +22,7 @@ export class FoundationService {
     private readonly emailService: EmailService,
   ) {}
   async sendEmails(sendEmailDto: SendEmailDto): Promise<void> {
-    const { from, sender_id, template_id, type = '' } = sendEmailDto;
+    const { from, sender_id, template_id, type = '', cc } = sendEmailDto;
 
     const query1 = `
       SELECT
@@ -65,6 +65,7 @@ export class FoundationService {
             name: name,
             address: address,
           }),
+          cc,
         });
       }
     } catch (error) {

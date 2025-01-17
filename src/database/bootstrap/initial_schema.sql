@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS email_logs (
     "from" VARCHAR(100) NOT NULL,
     template_id int NOT NULL,
     sender_id int NOT NULL,
+    cc VARCHAR,
     "status" email_logs_status DEFAULT 'PENDING',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

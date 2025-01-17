@@ -16,6 +16,9 @@ export class SendEmailDto {
   @IsString()
   subject: string;
 
+  @IsEmail()
+  cc: [string];
+
   @IsString()
   message: string;
 }

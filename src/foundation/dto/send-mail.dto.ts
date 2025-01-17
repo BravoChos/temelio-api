@@ -10,6 +10,9 @@ export class SendEmailDto {
   @IsString()
   template_id: string;
 
+  @IsEmail()
+  cc: [string];
+
   @IsOptional()
   @IsString()
   type?: string;
